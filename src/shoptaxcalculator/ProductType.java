@@ -24,6 +24,11 @@ public enum ProductType {
     public String getStringType() {
         return type;
     }
+    /**
+     * find the productType based on given string
+     * @param stringType
+     * @return 
+     */
     public ProductType getEnumType(String stringType){
         List<ProductType> typeList = Arrays.asList(ProductType.values());
         

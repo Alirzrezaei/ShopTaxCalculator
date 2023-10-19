@@ -19,7 +19,9 @@ public class SelectMenu {
     private Products products = products();
     private Products filteredProducts = new Products();
     private Products myCart = new Products();
-
+    /**
+     * showing the first menu selection to users
+     */
     public void firstMenuSelection() {
         System.out.println("****************************************************************");
         System.out.println("Press 0 to exit");
@@ -31,7 +33,9 @@ public class SelectMenu {
 
         productSelection();
     }
-
+    /*
+    Show the products to user to select between them
+    */
     private void productSelection() {
         Scanner sc = new Scanner(System.in);
 
@@ -97,7 +101,10 @@ public class SelectMenu {
         }
 
     }
-
+    /**
+     * initialization of the products 
+     * @return product objects contains all products
+     */
     private Products products() {
         Products products = new Products();
 
@@ -125,7 +132,10 @@ public class SelectMenu {
 
         return products;
     }
-
+    /**
+     * this method is printing all products for user
+     * @param products 
+     */
     private void productMenu(Products products) {
 
         if (products.getProductList() != null && !products.getProductList().isEmpty()) {
@@ -135,7 +145,9 @@ public class SelectMenu {
         }
 
     }
-
+    /**
+     * the products will be filtered here based on the type
+     */
     private void filterProducts() {
         Scanner sc = new Scanner(System.in);
         System.out.println("****************************************************************");
@@ -157,7 +169,11 @@ public class SelectMenu {
         }
 
     }
-
+    /**
+     * check if the given type is between product types
+     * @param type
+     * @return 
+     */
     private boolean checkIfTypeCorrect(String type) {
         for (ProductType productType : ProductType.values()) {
             if (productType.getStringType().equals(type)) {
@@ -166,7 +182,11 @@ public class SelectMenu {
         }
         return false;
     }
-
+    /**
+     * this finding the product type using given string value
+     * @param stringType
+     * @return productType
+     */
     private ProductType getProductType(String stringType) {
         List<ProductType> typeList = Arrays.asList(ProductType.values());
 

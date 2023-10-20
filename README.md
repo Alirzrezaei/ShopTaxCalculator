@@ -12,7 +12,8 @@ sales tax. <br/>
 <br/>
 ### +++ Test cases for products +++
 <br/>
-### INPUT:
+
+### INPUT:<br/>
 Input 1:<br/>
 > 1 book at 12.49<br/>
 > 1 music CD at 14.99<br/>

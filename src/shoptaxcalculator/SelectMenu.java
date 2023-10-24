@@ -7,8 +7,10 @@ package shoptaxcalculator;
 
 import java.awt.JobAttributes;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import jdk.nashorn.internal.objects.annotations.Constructor;
 
 /**
  *
@@ -16,9 +18,19 @@ import java.util.Scanner;
  */
 public class SelectMenu {
 
-    private Products products = products();
-    private Products filteredProducts = new Products();
-    private Products myCart = new Products();
+    private Products products;
+    private Products filteredProducts;
+    private Products myCart;
+    private List<CartProduct> myShoppingCart ;
+
+    public SelectMenu() {
+        products = products();
+        filteredProducts = new Products();
+        myCart = new Products();
+        myShoppingCart = new LinkedList<>();
+    }
+    
+    
     /**
      * showing the first menu selection to users
      */
@@ -192,4 +204,5 @@ public class SelectMenu {
 
         return typeList.stream().filter(pt -> pt.getStringType().equals(stringType)).findFirst().get();
     }
+
 }

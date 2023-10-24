@@ -63,6 +63,11 @@ public class Product {
     public ProductType getProductType() {
         return productType;
     }
+
+    public String getProductName() {
+        return productName;
+    }
+    
     /**
      * calculating the space after name and price
      * @param space
@@ -97,6 +102,18 @@ public class Product {
      */
     private boolean taxException() {
         return productType == ProductType.BOOK || productType == ProductType.FOOD || productType == ProductType.MEDICAL;
+    }
+    protected boolean equal(Object obj){
+        if(obj == null){
+            return false;
+        }
+        if(obj == this){
+            return true;
+        }
+        if(obj.getClass() == this.getClass() && ((Product)obj).getProductId() == this.productId){
+            return true;
+        }
+        return false;
     }
     /**
      * making string format of product

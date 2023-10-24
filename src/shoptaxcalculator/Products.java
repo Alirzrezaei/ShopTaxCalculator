@@ -99,6 +99,13 @@ public class Products {
         productList.forEach(p -> totalPrice += p.getPriceAndTax());
         return String.format("Total %.2f",  totalPrice);
     }
+    public String printCart(){
+        StringBuilder sb = new StringBuilder(); 
+       
+       this.productList.stream().forEach(p -> sb.append(p.toString()+"\n"));
+        
+       return sb.toString();
+    }
     /**
      * generating all products list string value
      * @return String of all products

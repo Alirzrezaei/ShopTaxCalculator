@@ -35,5 +35,17 @@ public enum ProductType {
         return typeList.stream().filter(pt -> pt.getStringType().equals(stringType)).findFirst().get();
     }
     
-    
+      /**
+     * check if the given type is between product types
+     * @param type
+     * @return 
+     */
+    public boolean checkIfTypeCorrect(String type) {
+        for (ProductType productType : ProductType.values()) {
+            if (productType.getStringType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

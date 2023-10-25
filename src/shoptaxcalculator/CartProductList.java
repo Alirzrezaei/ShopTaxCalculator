@@ -6,6 +6,7 @@
 package shoptaxcalculator;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,11 +18,11 @@ public class CartProductList {
     private List<CartProduct> cartProducts;
 
     public CartProductList() {
-        cartProducts = new ArrayList<>();
+        cartProducts = new LinkedList<>();
     }
 
     protected boolean contains(CartProduct cartProduct) {
-        return cartProducts.stream().anyMatch(cp -> cp.equals(cartProduct));
+        return cartProducts.stream().anyMatch(cp -> cp.equals(cartProduct.getProduct()));
     }
 
     protected void addToCart(CartProduct cartProduct) {
@@ -32,15 +33,22 @@ public class CartProductList {
             cartProducts.add(cartProduct);
         }
         else{
-            cartProduct.setAmount(cartProduct.getAmount()+1);
+            for(CartProduct cp:cartProducts){
+                if(cp.equals(cartProduct.getProduct())){
+                    cp.setAmount(cp.getAmount() + 1);
+                }
+            }
         }
     }
     protected boolean removeFromCart(int productId){
-        System.out.println("prod id "+ productId);
-        CartProduct cProd = cartProducts.stream().filter(cp -> 
-                cp.getProduct().getProductId() == productId).findFirst().get();
-        System.out.println("cProd id "+ cProd.toString());
-       return this.cartProducts.remove(cProd);
+       
+        for(CartProduct cp: this.cartProducts){
+            if(cp.equals(findInCart(productId).getProduct())){
+                System.out.println("removing the product");
+                return this.cartProducts.remove(cp);
+            }
+        }
+        return false;
     }
     
     protected CartProduct findInCart(int productId){

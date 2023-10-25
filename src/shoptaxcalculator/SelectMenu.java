@@ -217,8 +217,7 @@ public class SelectMenu {
         Scanner sc = new Scanner(System.in);
         printMyCart();
         int selection = 0;
-        while(true){
-            
+        while(true){ 
             if(sc.hasNextInt()){
                 selection = sc.nextInt();
                 switch(selection){
@@ -231,13 +230,9 @@ public class SelectMenu {
                         System.exit(1);
                         break;
                     default:
-                        if(myShoppingCart.removeFromCart(selection)){
-                            System.out.println("Product deleted");
-                        }
-                        else{
-                            System.out.println("Wrong product id");
-                        }
-                        printMyCart();     
+                        myShoppingCart.removeFromCart(selection); 
+                        printMyCart(); 
+                        break;
                 }
             }else{
                 break;

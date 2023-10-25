@@ -13,22 +13,42 @@ import java.util.List;
  * @author U764901
  */
 public class CartProductList {
-    private List<CartProduct> CartProducts;
+
+    private List<CartProduct> cartProducts;
 
     public CartProductList() {
-        CartProducts = new ArrayList<>();
+        cartProducts = new ArrayList<>();
     }
-    protected boolean contains(CartProduct cartProduct){
-        return CartProducts.stream().anyMatch(cp -> cp.equals(cartProduct));
+
+    protected boolean contains(CartProduct cartProduct) {
+        return cartProducts.stream().anyMatch(cp -> cp.equals(cartProduct));
+    }
+
+    protected void addToCart(CartProduct cartProduct) {
+        if(cartProduct == null){
+            return;
+        }
+        if (!contains(cartProduct)) {
+            cartProducts.add(cartProduct);
+        }
+        else{
+            cartProduct.setAmount(cartProduct.getAmount()+1);
+        }
+    }
+    protected void removeFromCart(int productId){    
+        cartProducts.remove(cartProducts.stream().filter(cp -> cp.getProduct().getProductId() == productId).findFirst().get());
     }
     
-    
-     public String toString(){
+    protected CartProduct findInCart(int productId){
+        return cartProducts.stream().filter(cp -> cp.getProduct().getProductId() == productId).findFirst().get();
+    }
+
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        
-        CartProducts.stream().forEach(cp -> sb.append(cp.toString() + "\n"));
-        
+
+        cartProducts.stream().forEach(cp -> sb.append(cp.toString() + "\n"));
+
         return sb.toString();
     }
-    
+
 }

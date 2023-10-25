@@ -21,13 +21,13 @@ public class SelectMenu {
     private Products products;
     private Products filteredProducts;
     private Products myCart;
-    private List<CartProduct> myShoppingCart ;
+    private CartProductList myShoppingCart ;
 
     public SelectMenu() {
         products = products();
         filteredProducts = new Products();
         myCart = new Products();
-        myShoppingCart = new LinkedList<>();
+        myShoppingCart = new CartProductList();
     }
     
     

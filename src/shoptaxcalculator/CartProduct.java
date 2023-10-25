@@ -14,7 +14,11 @@ import java.util.Objects;
 public class CartProduct {
     private Product product;
     private int amount;
-
+    
+    public CartProduct(Product product){
+        this.product = product;
+        amount = 1;
+    }
     public Product getProduct() {
         return product;
     }
@@ -35,9 +39,13 @@ public class CartProduct {
     public boolean equals(Object obj){
         return this.product.equal(obj);
     }
-
+    public String showCart(){
+        return "> " + amount + " id:"+ product.getProductId()+ " " + 
+                (product.isImported()?"imported":"") + " " + product.getProductName() + " " +
+                (product.getPrice() + product.getTax()); 
+    }
     public String toString(){
-        return "> " + amount + " " + product.isImported() + " " + product.getProductName() + " " +
+        return "> " + amount + " " + (product.isImported()?"imported":"") + " " + product.getProductName() + " " +
                 (product.getPrice() + product.getTax()); 
     }
 }

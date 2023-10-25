@@ -35,18 +35,28 @@ public class CartProductList {
             cartProduct.setAmount(cartProduct.getAmount()+1);
         }
     }
-    protected void removeFromCart(int productId){    
-        cartProducts.remove(cartProducts.stream().filter(cp -> cp.getProduct().getProductId() == productId).findFirst().get());
+    protected boolean removeFromCart(int productId){
+        System.out.println("prod id "+ productId);
+        CartProduct cProd = cartProducts.stream().filter(cp -> 
+                cp.getProduct().getProductId() == productId).findFirst().get();
+        System.out.println("cProd id "+ cProd.toString());
+       return this.cartProducts.remove(cProd);
     }
     
     protected CartProduct findInCart(int productId){
         return cartProducts.stream().filter(cp -> cp.getProduct().getProductId() == productId).findFirst().get();
     }
+    public String showCart(){
+        StringBuilder sb = new StringBuilder();
 
+        cartProducts.stream().forEach(cp -> sb.append(cp.showCart()).append("\n"));
+
+        return sb.toString();
+    }
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        cartProducts.stream().forEach(cp -> sb.append(cp.toString() + "\n"));
+        cartProducts.stream().forEach(cp -> sb.append(cp.toString()).append("\n"));
 
         return sb.toString();
     }

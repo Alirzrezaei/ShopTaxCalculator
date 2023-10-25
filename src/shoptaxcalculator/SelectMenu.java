@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.text.DefaultEditorKit;
 import jdk.nashorn.internal.objects.annotations.Constructor;
 
 /**
@@ -24,7 +25,7 @@ public class SelectMenu {
     private CartProductList myShoppingCart ;
 
     public SelectMenu() {
-        products = products();
+        products = fillProducts();
         filteredProducts = new Products();
         myCart = new Products();
         myShoppingCart = new CartProductList();
@@ -76,10 +77,16 @@ public class SelectMenu {
                         System.out.println("****************************************************************");
                         System.out.println("Your confirmed cart is:");
                         System.out.println("****************************************************************");
-                        productMenu(myCart);
-                        System.out.println(myCart.printTaxes());
-                        System.out.println(myCart.printTotal());
-                        System.exit(1);
+                        //productMenu(myCart);
+                        try{
+                        cartList();
+                        }
+                        catch(InterruptedException IE){
+                            
+                        }
+                        //System.out.println(myCart.printTaxes());
+                        //System.out.println(myCart.printTotal());
+                        //System.exit(1);
                         break;
                     default:
                         System.out.println("Wrong Selection");
@@ -92,7 +99,9 @@ public class SelectMenu {
                         int userInput = sc.nextInt();
                         if (products.contains(userInput)) {
                             System.out.println("adding to product " + userInput + " to cart");
-                            myCart.addToList(products.getProductList().stream().filter(p -> p.getProductId() == userInput).findFirst().get());
+                            myShoppingCart.addToCart(new CartProduct(
+                                    products.getProductList().stream().filter(p -> p.getProductId() == userInput).findFirst().get()));
+                            //myCart.addToList(products.getProductList().stream().filter(p -> p.getProductId() == userInput).findFirst().get());
                         }else{
                             System.out.println("selected product " + userInput + " is not the product list");
                         }
@@ -117,7 +126,7 @@ public class SelectMenu {
      * initialization of the products 
      * @return product objects contains all products
      */
-    private Products products() {
+    private Products fillProducts() {
         Products products = new Products();
 
         products.addToList(new Product("Samsung Galaxy S 23", 1299.99, ProductType.ELECTRONICS, true));
@@ -163,7 +172,7 @@ public class SelectMenu {
     private void filterProducts() {
         Scanner sc = new Scanner(System.in);
         System.out.println("****************************************************************");
-        System.out.println("Filter with below types of 0 to back first menu");
+        System.out.println("Filter with below types or 0 to back first menu");
         System.out.println("BOOK, MEDICAL, FOOD, ELECTRONICS(, BATHROOM, "
                 + "DINNING, BEDROOM, TEXTILE");
         System.out.println("****************************************************************");
@@ -204,5 +213,47 @@ public class SelectMenu {
 
         return typeList.stream().filter(pt -> pt.getStringType().equals(stringType)).findFirst().get();
     }
-
+    private void cartList() throws InterruptedException{
+        Scanner sc = new Scanner(System.in);
+        printMyCart();
+        int selection = 0;
+        while(true){
+            
+            if(sc.hasNextInt()){
+                selection = sc.nextInt();
+                switch(selection){
+                    case 0: 
+                        firstMenuSelection();
+                        break;
+                    case 1:
+                        System.out.println("Your purchased products are: \n" + myShoppingCart.toString());
+                        Thread.sleep(1000);
+                        System.exit(1);
+                        break;
+                    default:
+                        if(myShoppingCart.removeFromCart(selection)){
+                            System.out.println("Product deleted");
+                        }
+                        else{
+                            System.out.println("Wrong product id");
+                        }
+                        printMyCart();     
+                }
+            }else{
+                break;
+            }
+        }
+    }
+    private void printMyCart() throws InterruptedException{
+        
+        System.out.println("****************************************************************");
+        System.out.println("press 0 to back first menu");
+        System.out.println("press 1 to finalize your purchase");
+        System.out.println("press product id to remove a product from list");
+        System.out.println();
+        
+        Thread.sleep(1000);
+        
+        System.err.println(myShoppingCart.showCart());
+    }
 }
